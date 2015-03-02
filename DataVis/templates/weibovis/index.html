@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微博可视化--丰台</title>
+
+    <link rel="shortcut icon" href="../asset/ico/favicon.png">
+
+    <link href="../asset/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../asset/css/bootstrap.css" rel="stylesheet">
+    <link href="../asset/css/carousel.css" rel="stylesheet">
+    <link href="../asset/css/echartsHome.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="./www/js/echarts.js"></script>
+    <script src="../asset/js/codemirror.js"></script>
+    <script src="../asset/js/javascript.js"></script>
+
+    <link href="../asset/css/codemirror.css" rel="stylesheet">
+    <link href="../asset/css/monokai.css" rel="stylesheet">
+
+    <style type="text/css">
+        .CodeMirror {
+            height: 550px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="head"></div>
+
+
+    <div class="container-fluid">
+        <div class="row-fluid example">
+            <div id="sidebar-code" class="col-md-4">
+                <div class="well sidebar-nav">
+                    <div class="nav-header"><a href="#" onclick="autoResize()" class="glyphicon glyphicon-resize-full" id ="icon-resize" ></a>option</div>
+                    <textarea id="code" name="code">
+// 自定义扩展图表类型：mapType = HK
+var myChart = echarts.init(document.getElementById('main'));
+require('echarts/util/mapData/params').params.FT = {
+    getGeoJson: function (callback) {
+        $.getJSON('geoJson/FT.json',callback);
+    }
+}
+var placeList = [
+    {name:'美高美', geoCoord:[116.090316745, 39.8066538017]},
+    {name:'南宫饭店', geoCoord:[116.14783293, 39.8037860467]},
+    {name:'淮阳村', geoCoord:[116.168974437, 39.8040199854]},
+    {name:'翠云山庄', geoCoord:[116.154235095, 39.8162342218]},
+    {name:'北方宾馆', geoCoord:[116.180089174, 39.8079383742]},
+    {name:'京西南宫宾馆', geoCoord:[116.148811202, 39.8080363974]}
+]
+var option = {
+    backgroundColor: '#1b1b1b',
+    color: [
+        'rgba(255, 255, 255, 0.8)',
+        'rgba(14, 241, 242, 0.8)',
+        'rgba(37, 140, 249, 0.8)'
+    ],
+    title : {
+        text: '大规模MarkPoint特效',
+        subtext: '纯属虚构',
+        x:'center',
+        textStyle : {
+            color: '#fff'
+        }
+    },
+    legend: {
+        orient: 'vertical',
+        x:'left',
+        data:['强','中','弱'],
+        textStyle : {
+            color: '#fff'
+        }
+    },
+    toolbox: {
+        show : true,
+        orient : 'vertical',
+        x: 'right',
+        y: 'center',
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    series : [
+        {
+            name: '弱',
+            type: 'map',
+            mapType: 'FT',
+            itemStyle:{
+                normal:{
+                    borderColor:'rgba(100,149,237,1)',
+                    borderWidth:1.5,
+                    areaStyle:{
+                        color: '#1b1b1b'
+                    }
+                }
+            },
+            data : [],
+            markPoint : {
+                symbolSize: 2,
+                large: true,
+                effect : {
+                    show: true
+                },
+                data : (function(){
+                    var data = [];
+                    var len = 2;
+                    var geoCoord
+                    while(len--) {
+                        geoCoord = placeList[len % placeList.length].geoCoord;
+                        data.push({
+                            name : placeList[len % placeList.length].name + len,
+                            value : 10,
+                            geoCoord : [
+                                geoCoord[0] + Math.random() * 5 * -1,
+                                geoCoord[1] + Math.random() * 3 * -1
+                            ]
+                        })
+                    }
+                    return data;
+                })()
+            }
+        },
+        {
+            name: '中',
+            type: 'map',
+            mapType: 'FT',
+            data : [],
+            markPoint : {
+                symbolSize: 3,
+                large: true,
+                effect : {
+                    show: true
+                },
+                data : (function(){
+                    var data = [];
+                    var len = 2;
+                    var geoCoord
+                    while(len--) {
+                        geoCoord = placeList[(len + 3) % placeList.length].geoCoord;
+                        data.push({
+                            name : placeList[(len + 3) % placeList.length].name + len,
+                            value : 50,
+                            geoCoord : [
+                                geoCoord[0] + Math.random() * 5 * -1,
+                                geoCoord[1] + Math.random() * 3 * -1
+                            ]
+                        })
+                    }
+                    return data;
+                })()
+            }
+        },
+        {
+            name: '强',
+            type: 'map',
+            mapType: 'FT',
+            hoverable: false,
+            roam:true,
+            data : [],
+            markPoint : {
+                symbol : 'diamond',
+                symbolSize: 6,
+                large: true,
+                effect : {
+                    show: true
+                },
+                data : (function(){
+                    var data = [];
+                    var len = placeList.length;
+                    while(len--) {
+                        data.push({
+                            name : placeList[len].name,
+                            value : 90,
+                            geoCoord : placeList[len].geoCoord
+                        })
+                    }
+                    return data;
+                })()
+            }
+        }
+    ]
+};
+// 为echarts对象加载数据 
+myChart.setOption(option);
+                    </textarea>
+              </div><!--/.well -->
+            </div><!--/span-->
+            <div id="graphic" class="col-md-8">
+                <div id="main" class="main" style="height: 530px;"></div>
+                <div>
+                    <button type="button" class="btn btn-sm btn-success" onclick="refresh(true)">刷 新</button>
+
+                    <span id='wrong-message' style="color:red"></span>
+                </div>
+            </div><!--/span-->
+        </div><!--/row-->
+        
+        </div><!--/.fluid-container-->
+
+    <footer id="footer"></footer>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../asset/js/jquery.min.js"></script>
+    <script src="../asset/js/bootstrap.min.js"></script>
+    <script src="../asset/js/echartsExample.js"></script>
+</body>
+</html>
