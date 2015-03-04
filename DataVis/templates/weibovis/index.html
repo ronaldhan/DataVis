@@ -10,7 +10,9 @@
 	</head>
 	<body>
 		<div id="main" style="height:600px;width:800px;padding:10px;"></div>
-		
+		<script language="JavaScript">
+			var js_geojson = "{% static 'Scripts/geoJson/FT.json' %}"
+		</script>
         <script type="text/javascript" src="{% static 'Scripts/index.js' %}"></script>
         <br />
         <button type="button"  id="btn-get-data" onclick="refresh(true)">刷 新</button>

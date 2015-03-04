@@ -1,9 +1,6 @@
-﻿var pathname = location.pathname;
-var pathlevel = pathname.slice(0, pathname.indexOf('index'));
-
-echarts.util.mapData.params.params.FT = {
+﻿echarts.util.mapData.params.params.FT = {
     getGeoJson: function (callback) {
-        $.getJSON(pathlevel + 'geoJson/FT.json', callback);
+        $.getJSON(js_geojson, callback);
     }
 } 
 var myChart = echarts.init(document.getElementById("main"));
