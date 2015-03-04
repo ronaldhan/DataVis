@@ -13,8 +13,4 @@ def about(request):
 
 
 def mapdata(request):
-    t = loader.get_template('static/doc/example/mapdata.html')
-    c = Context({
-        'mapdata': mapdata,
-    })
-    return HttpResponse(t.render(c))
+    return render_to_response('weibovis/index.html')

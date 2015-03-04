@@ -3,7 +3,7 @@ var pathlevel = pathname.slice(0, pathname.indexOf('index'));
 
 echarts.util.mapData.params.params.FT = {
     getGeoJson: function (callback) {
-        $.getJSON(pathlevel + 'Scripts/FT.json', callback);
+        $.getJSON(pathlevel + 'geoJson/FT.json', callback);
     }
 } 
 var myChart = echarts.init(document.getElementById("main"));

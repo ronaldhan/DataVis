@@ -1,16 +1,17 @@
 ﻿<!DCOTYPE html>
+{% load static %}
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>微博信息可视化</title>
-		<script src="./Scripts/ecom/esl/esl.js"></script>
-		<script type="text/javascript" src="./Scripts/dist/jquery.min.js"></script>
-		<script type="text/javascript" src="./Scripts/dist/echarts-all.js"></script>
+		<script src="{% static 'Scripts/ecom/esl/esl.js' %}"></script>
+		<script src="{% static 'Scripts/dist/jquery.min.js' %}"></script>
+		<script src="{% static 'Scripts/dist/echarts-all.js' %}"></script>
 	</head>
 	<body>
 		<div id="main" style="height:600px;width:800px;padding:10px;"></div>
 		
-        <script type="text/javascript" src="./Scripts/index.js"></script>
+        <script type="text/javascript" src="{% static 'Scripts/index.js' %}"></script>
         <br />
         <button type="button"  id="btn-get-data" onclick="refresh(true)">刷 新</button>
 	</body>
