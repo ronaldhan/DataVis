@@ -29,7 +29,7 @@ function getMapData(){
 			if (data != null) {
 				if (data) {
 					//get the data now
-					console.log(data)
+					console.log('get data success')
 					series_data = data
 				}
 			}
@@ -43,7 +43,7 @@ function getMapData(){
 //get map option
 function getMapOption(){
 	var option = {
-		backgroundColor: '#1b1b1b',
+		backgroundColor: '#D3D3D3',
 		color: [
 			'rgba(255, 255, 255, 0.8)',
 			'rgba(14, 241, 242, 0.8)',
@@ -60,10 +60,16 @@ function getMapOption(){
 		legend: {
 			orient: 'vertical',
 			x:'left',
-			data:['弱'],
+			data:['check-count'],
 			textStyle : {
 				color: '#fff'
 			}
+		},
+		dataRange: {
+			min: series_data['datarange']['min'],
+			max: series_data['datarange']['max'],
+			calculable : true,
+			color: ['maroon','purple','red','orange','yellow','lightgreen']
 		},
 		toolbox: {
 			show : true,
@@ -79,7 +85,7 @@ function getMapOption(){
 		},
 		series: [
 			{
-				name: '弱',
+				name: 'check-count',
 				type: 'map',
 				mapType: 'FT',
 				itemStyle:{

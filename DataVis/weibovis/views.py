@@ -2,6 +2,7 @@
 import random
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, JsonResponse
+from django.db.models import Max, Min
 from weibovis.models import StatsData
 
 
@@ -26,25 +27,23 @@ def getdata(request):
     if kind == 'map':
         # construct map data
         result = get_map_data()
-        print JsonResponse(result, safe=False)
     return JsonResponse(result, safe=False)
 
 
 def get_map_data():
-    # series_data = [
-    #     {'name': 1, 'value': 10, 'geoCoord': [116.090316745, 39.8066538017]},
-    #     {'name': 2, 'value': 10, 'geoCoord': [116.14783293, 39.8037860467]},
-    #     {'name': 3, 'value': 10, 'geoCoord': [116.168974437, 39.8040199854]},
-    #     {'name': 4, 'value': 10, 'geoCoord': [116.154235095, 39.8162342218]},
-    #     {'name': 5, 'value': 10, 'geoCoord': [116.180089174, 39.8079383742]},
-    #     {'name': 6, 'value': 10, 'geoCoord': [116.148811202, 39.8080363974]}
-    # ]
     series_data = []
     stats_list = StatsData.objects.all()
     for item in stats_list:
-        series_data.append(item.get_dict)
+        series_data.append(item.get_dict())
     result = dict()
+    datarange = dict()
+    # through the aggregate function to get max and min value
+    # the result like {'pntcnt__max': 378}
+    datarange['max'] = stats_list.aggregate(Max('pntcnt'))['pntcnt__max']
+    datarange_min = stats_list.aggregate(Min('pntcnt'))['pntcnt__min']
+    datarange['min'] = 0 if datarange_min > 0 else datarange_min
     result['series'] = series_data
+    result['datarange'] = datarange
     return result
 
 
