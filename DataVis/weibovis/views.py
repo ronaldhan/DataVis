@@ -2,7 +2,7 @@
 import random
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, JsonResponse
-from django.template import loader, Context
+from weibovis.models import StatsData
 
 
 def index(request):
@@ -31,14 +31,18 @@ def getdata(request):
 
 
 def get_map_data():
-    series_data = [
-        {'name': 1, 'value': 10, 'geoCoord': [116.090316745, 39.8066538017]},
-        {'name': 2, 'value': 10, 'geoCoord': [116.14783293, 39.8037860467]},
-        {'name': 3, 'value': 10, 'geoCoord': [116.168974437, 39.8040199854]},
-        {'name': 4, 'value': 10, 'geoCoord': [116.154235095, 39.8162342218]},
-        {'name': 5, 'value': 10, 'geoCoord': [116.180089174, 39.8079383742]},
-        {'name': 6, 'value': 10, 'geoCoord': [116.148811202, 39.8080363974]}
-    ]
+    # series_data = [
+    #     {'name': 1, 'value': 10, 'geoCoord': [116.090316745, 39.8066538017]},
+    #     {'name': 2, 'value': 10, 'geoCoord': [116.14783293, 39.8037860467]},
+    #     {'name': 3, 'value': 10, 'geoCoord': [116.168974437, 39.8040199854]},
+    #     {'name': 4, 'value': 10, 'geoCoord': [116.154235095, 39.8162342218]},
+    #     {'name': 5, 'value': 10, 'geoCoord': [116.180089174, 39.8079383742]},
+    #     {'name': 6, 'value': 10, 'geoCoord': [116.148811202, 39.8080363974]}
+    # ]
+    series_data = []
+    stats_list = StatsData.objects.all()
+    for item in stats_list:
+        series_data.append(item.get_dict)
     result = dict()
     result['series'] = series_data
     return result

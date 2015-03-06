@@ -8,9 +8,12 @@ class StatsData(models.Model):
     y = models.FloatField()
     pntcnt = models.IntegerField()
 
-    def __unicode__(self):
+    def get_dict(self):
         result = dict()
         result['name'] = self.id
         result['value'] = self.pntcnt
         result['geoCoord'] = [self.x, self.y]
         return result
+
+    def __unicode__(self):
+        return "coordinates: %s,%s " (str(self.x), str(self.y))
