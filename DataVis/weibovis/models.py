@@ -15,5 +15,8 @@ class StatsData(models.Model):
         result['geoCoord'] = [self.x, self.y]
         return result
 
+    def get_value(self):
+        return self.pntcnt
+
     def __unicode__(self):
         return "coordinates: %s,%s " (str(self.x), str(self.y))

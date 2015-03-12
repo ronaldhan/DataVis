@@ -43,7 +43,7 @@ function getMapData(){
 //get map option
 function getMapOption(){
 	var option = {
-		backgroundColor: '#D3D3D3',
+		backgroundColor: '#1b1b1b',
 		color: [
 			'rgba(255, 255, 255, 0.8)',
 			'rgba(14, 241, 242, 0.8)',
@@ -60,7 +60,7 @@ function getMapOption(){
 		legend: {
 			orient: 'vertical',
 			x:'left',
-			data:['check-count'],
+			data:['high', 'middle', 'low'],
 			textStyle : {
 				color: '#fff'
 			}
@@ -69,7 +69,10 @@ function getMapOption(){
 			min: series_data['datarange']['min'],
 			max: series_data['datarange']['max'],
 			calculable : true,
-			color: ['maroon','purple','red','orange','yellow','lightgreen']
+			color: ['red','yellow','lightgreen'],
+			textStyle : {
+				color: '#fff'
+			}
 		},
 		toolbox: {
 			show : true,
@@ -85,13 +88,17 @@ function getMapOption(){
 		},
 		series: [
 			{
-				name: 'check-count',
+				name: 'low',
 				type: 'map',
 				mapType: 'FT',
+				scaleLimit : {
+					max : 2,
+					min : 0.8
+				},
 				itemStyle:{
 					normal:{
 						borderColor:'rgba(100,149,237,1)',
-						borderWidth:1.5,
+						borderWidth:0.5,
 						areaStyle:{
 							color: '#1b1b1b'
 						}
@@ -99,12 +106,42 @@ function getMapOption(){
 				},
 				data : [],
 				markPoint : {
-					symbolSize: 2,
+					symbolSize: 0.5,
+					large: true,
+					effect : {
+						show: false
+					},
+					data : series_data['series']['low']
+				}
+			},
+			{
+				name: 'middle',
+				type: 'map',
+				mapType: 'FT',
+				data : [],
+				markPoint : {
+					symbolSize: 1.5,
+					large: true,
+					effect : {
+						show: false
+					},
+					data : series_data['series']['middle']
+				}
+			},
+			{
+				name: 'high',
+				type: 'map',
+				mapType: 'FT',
+				hoverable : false,
+				data : [],
+				markPoint : {
+					symbol : 'diamond',
+					symbolSize: 5,
 					large: true,
 					effect : {
 						show: true
 					},
-					data : series_data['series']
+					data : series_data['series']['high']
 				}
 			}
 		]
