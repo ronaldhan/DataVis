@@ -7,7 +7,7 @@ from django.db.models import Max, Min
 
 import pysal.esda.mapclassify as mpc
 
-from weibovis.models import StatsData
+from weibovis.models import StatsData, Grid, WbPoint
 
 
 def index(request):
@@ -84,4 +84,18 @@ def get_data_breaks(y, k=5):
     """
     nb = mpc.Natural_Breaks(y, k=k)
     return nb.bins
+
+
+def get_time_data():
+    """
+    compute the time range data
+    :return:dict object contains
+    """
+    grids = Grid.objects.all()
+
+    for grid in grids:
+        # compute the point within the grid
+        points = WbPoint.objects.filter(point__within=grid.geom)
+        pntcnt = len(points)
+
 
