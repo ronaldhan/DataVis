@@ -23,6 +23,7 @@ class StatsData(models.Model):
 
 
 class Grid(models.Model):
+    rid = models.IntegerField()
     x = models.FloatField()
     y = models.FloatField()
     geom = models.PolygonField()
