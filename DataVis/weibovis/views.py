@@ -105,34 +105,52 @@ def get_time_data():
     compute the time range data
     :return:dict object contains
     """
-    date_column = 'cdate'
-    grids = Grid.objects.all()
-    dates = WbPoint.objects.order_by(date_column).distinct(date_column)
-    # final result
-    result = dict()
-    # day_item one grid in one day's count
-    day_item = dict()
-    # store all days data
-    all_day = dict()
-    # date string list
-    date_list = [cdate.cdate.strftime('%Y-%m-%d') for cdate in dates]
+    file_folder = os.path.join(settings.STATIC_PATH, 'Temple')
+    file_name = 'time_data.json'
+    full_path = os.path.join(file_folder, file_name)
 
-    for cdate in dates:
-        one_date = cdate.cdate
-        date_str = cdate.cdate.strftime('%Y-%m-%d')
-        # day_data all grids in one day's count
-        day_data = []
-        for grid in grids:
-            # compute the point within the grid
-            # get the weibo point in one day and in the special grid
-            points = WbPoint.objects.filter(point__within=grid.geom).filter(cdate=one_date)
-            pntcnt = len(points)
-            day_item['name'] = grid.rid
-            day_item['value'] = pntcnt
-            day_item['geoCoord'] = [grid.x, grid.y]
-            day_data.append(day_item)
-        all_day[date_str] = day_data
-    result['series'] = all_day
-    result['timeline'] = date_list
+    if os.path.exists(full_path):
+        result = read_json(full_path)
+    else:
+        date_column = 'cdate'
+        grids = Grid.objects.all()
+        dates = WbPoint.objects.order_by(date_column).distinct(date_column)
+        # final result
+        result = dict()
+        # day_item one grid in one day's count
+        day_item = dict()
+        # store all days data
+        all_day = dict()
+        # date string list
+        date_list = [cdate.cdate.strftime('%Y-%m-%d') for cdate in dates]
+        # data range
+        datarange = dict()
+        range_max = 0
+
+        for cdate in dates:
+            one_date = cdate.cdate
+            date_str = cdate.cdate.strftime('%Y-%m-%d')
+            # day_data all grids in one day's count
+            day_data = []
+            for grid in grids:
+                # compute the point within the grid
+                # get the weibo point in one day and in the special grid
+                points = WbPoint.objects.filter(point__within=grid.geom).filter(cdate=one_date)
+                pntcnt = len(points)
+                range_max = max(pntcnt, range_max)
+                day_item['name'] = grid.rid
+                day_item['value'] = pntcnt
+                day_item['geoCoord'] = [grid.x, grid.y]
+                day_data.append(day_item)
+            all_day[date_str] = day_data
+
+        datarange['max'] = range_max
+        datarange['min'] = 0
+
+        result['series'] = all_day
+        result['timeline'] = date_list
+        result['datarange'] = datarange
+
+        store_json(result)
 
     return result
