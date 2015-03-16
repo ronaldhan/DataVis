@@ -34,6 +34,10 @@ def getdata(request):
     if kind == 'map':
         # construct map data
         result = get_map_data()
+    elif kind == 'time':
+        result = get_time_data()
+    else:
+        pass
     return JsonResponse(result, safe=False)
 
 
