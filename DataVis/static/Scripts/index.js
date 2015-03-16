@@ -9,19 +9,29 @@ refresh()
 
 
 function refresh() {
-	getMapData();
-	var option = getMapOption()
+	getData();
+	var option
+	var pic_kind = $('#pic_kind option:selected')val()
+	if (pic_kind == 'map'){
+		option = getMapOption()
+	}
+	else if (pic_kind == 'time'){
+		option = getTimeOption()
+	}
+	else {
+	}
 	myChart.setOption(option);
 };
-//get map data from host
-function getMapData(){
+//get data from host
+function getData(){
+	var pic_kind = $('#pic_kind option:selected')val()
 	$.ajax({
 		//url that deal with request and compute
 		//async dafault is true, it means that
 		//the front will execute the rest script whether there is a return,
 		//in this place, async should be false
 		url: "/weibovis/getdata/",
-		data: { kind: 'map'},
+		data: { kind: pic_kind},
 		cache: false,
 		async: false,
 		dataType: "json",
@@ -150,70 +160,70 @@ function getMapOption(){
 }
 
 function getTimeOption(){
-option = {
-    timeline:{
-        data:series_data['timeline'],
-        label : {
-                show: true,
-                formatter: null,
-                textStyle: {
-                    color: '#333'
-                }
-        },
-        autoPlay : true,
-        playInterval : 1000
-    },
-	options: make_time_series()
-}
+	option = {
+		timeline:{
+			data:series_data['timeline'],
+			label : {
+					show: true,
+					formatter: null,
+					textStyle: {
+						color: '#333'
+					}
+			},
+			autoPlay : true,
+			playInterval : 1000
+		},
+		options: make_time_series()
+	}
 }
 
 function make_time_series(){
-options = []
-part_options = {
-		title : {
-			'text':'2014-05-01 微博热点区域',
-			'subtext':'以丰台地区2014年5月份为例'
-		},
-		toolbox : {
-			'show':true,
-			'feature':{
-				'mark':{'show':true},
-				'dataView':{'show':true,'readOnly':false},
-				'restore':{'show':true},
-				'saveAsImage':{'show':true}
-			}
-		},
-		dataRange: {
-			min: series_data['datarange']['min'],
-			max : series_data['datarange']['max'],
-			text:['高','低'],           // 文本，默认为数值文本
-			calculable : true,
-			x: 'left',
-			color: ['orangered','yellow','lightskyblue']
-		},
-		series : [
-			{
-				'name':'timedata',
-				'type':'map',
-				'data': series_data['series']['2014-05-01']
-			}
-		]
-	}
-options.push(part_options)
-dates = series_data['timeline']
-dcount = dates.length
-sdates = dates.slice(1, dcount)
-option_item = {}
+	options = []
+	part_options = {
+			title : {
+				'text':'2014-05-01 微博热点区域',
+				'subtext':'以丰台地区2014年5月份为例'
+			},
+			toolbox : {
+				'show':true,
+				'feature':{
+					'mark':{'show':true},
+					'dataView':{'show':true,'readOnly':false},
+					'restore':{'show':true},
+					'saveAsImage':{'show':true}
+				}
+			},
+			dataRange: {
+				min: series_data['datarange']['min'],
+				max : series_data['datarange']['max'],
+				text:['高','低'],           // 文本，默认为数值文本
+				calculable : true,
+				x: 'left',
+				color: ['orangered','yellow','lightskyblue']
+			},
+			series : [
+				{
+					'name':'timedata',
+					'type':'map',
+					'data': series_data['series']['2014-05-01']
+				}
+			]
+		}
+	options.push(part_options)
+	dates = series_data['timeline']
+	dcount = dates.length
+	sdates = dates.slice(1, dcount)
+	option_item = {}
 
-for (date in sdates){
-	data_list = []
-	data_dict = {}
-	data_dict['data'] = series_data['series'][date]
-	data_list.push(data_dict)
-	option_item['title'] = {'text': date + ' 微博热点区域'}
-	option_item['series'] = data_list
-	options.push(option_item)
-}
-return options
+	for (date in sdates){
+		data_list = []
+		data_dict = {}
+		data_dict['data'] = series_data['series'][date]
+		data_list.push(data_dict)
+		option_item['title'] = {'text': date + ' 微博热点区域'}
+		option_item['series'] = data_list
+		options.push(option_item)
+	}
+	return options
 }
 

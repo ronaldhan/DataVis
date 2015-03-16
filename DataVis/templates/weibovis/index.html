@@ -15,6 +15,11 @@
 		</script>
         <script type="text/javascript" src="{% static 'Scripts/index.js' %}"></script>
         <br />
+		<select id="pic_kind">
+			<option value="map">marker</option>
+			<option value="time">时间序列图</option>
+		</select>
+		<br />
         <button type="button"  id="btn-get-data" onclick="refresh()">刷 新</button>
 	</body>
 </html>
