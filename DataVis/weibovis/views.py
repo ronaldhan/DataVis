@@ -91,11 +91,34 @@ def get_time_data():
     compute the time range data
     :return:dict object contains
     """
+    date_column = 'cdate'
     grids = Grid.objects.all()
+    dates = WbPoint.objects.order_by(date_column).distinct(date_column)
+    # final result
+    result = dict()
+    # day_item one grid in one day's count
+    day_item = dict()
+    # store all days data
+    all_day = dict()
+    # date string list
+    date_list = [cdate.cdate.strftime('%Y-%m-%d') for cdate in dates]
 
-    for grid in grids:
-        # compute the point within the grid
-        points = WbPoint.objects.filter(point__within=grid.geom)
-        pntcnt = len(points)
+    for cdate in dates:
+        one_date = cdate.cdate
+        date_str = cdate.cdate.strftime('%Y-%m-%d')
+        # day_data all grids in one day's count
+        day_data = []
+        for grid in grids:
+            # compute the point within the grid
+            # get the weibo point in one day and in the special grid
+            points = WbPoint.objects.filter(point__within=grid.geom).filter(cdate=one_date)
+            pntcnt = len(points)
+            day_item['name'] = grid.rid
+            day_item['value'] = pntcnt
+            day_item['geoCoord'] = [grid.x, grid.y]
+            day_data.append(day_item)
+        all_day[date_str] = day_data
+    result['series'] = all_day
+    result['timeline'] = date_list
 
-
+    return result
