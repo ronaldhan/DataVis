@@ -11,7 +11,7 @@ refresh()
 function refresh() {
 	getData();
 	var option
-	var pic_kind = $('#pic_kind option:selected')val()
+	var pic_kind = $('#pic_kind option:selected').val()
 	if (pic_kind == 'map'){
 		option = getMapOption()
 	}
@@ -24,7 +24,7 @@ function refresh() {
 };
 //get data from host
 function getData(){
-	var pic_kind = $('#pic_kind option:selected')val()
+	var pic_kind = $('#pic_kind option:selected').val()
 	$.ajax({
 		//url that deal with request and compute
 		//async dafault is true, it means that
