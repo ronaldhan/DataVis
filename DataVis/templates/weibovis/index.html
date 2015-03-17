@@ -7,19 +7,18 @@
 		<script src="{% static 'Scripts/ecom/esl/esl.js' %}"></script>
 		<script src="{% static 'Scripts/dist/jquery.min.js' %}"></script>
 		<script src="{% static 'Scripts/dist/echarts-all.js' %}"></script>
+		<link href="{% static 'Css/index.css' %}" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-		<div id="main" style="height:600px;width:800px;padding:10px;"></div>
+		<div id="map_chart"></div>
+		<br />
+		<br />
+		<div id="time_chart"></div>
+		<br />
+		<br />
 		<script language="JavaScript">
 			var js_geojson = "{% static 'Scripts/geoJson/FT.json' %}"
 		</script>
         <script type="text/javascript" src="{% static 'Scripts/index.js' %}"></script>
-        <br />
-		<select id="pic_kind">
-			<option value="map">marker</option>
-			<option value="time">时间序列图</option>
-		</select>
-		<br />
-        <button type="button"  id="btn-get-data" onclick="refresh()">刷 新</button>
 	</body>
 </html>

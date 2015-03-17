@@ -1,0 +1,19 @@
+body{
+    text-align:center
+}
+
+#main {
+    margin: 0 auto;
+    width: 800px;
+    border: 1px solid #000
+}
+
+#map_chart {
+    height: 600px;
+    padding: 10px;
+}
+
+#time_chart {
+    height: 600px;
+    padding: 10px;
+}
