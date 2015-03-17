@@ -26,6 +26,10 @@ def mapdata(request):
     return render_to_response('weibovis/index.html')
 
 
+def timedata(request):
+    return render_to_response('weibovis/index.html')
+
+
 def getdata(request):
     # deal with the request from front, now it is map data
     querydict = request.GET
@@ -89,7 +93,7 @@ def get_map_data():
         result['series'] = series_data
         result['datarange'] = datarange
 
-        store_json(result)
+        store_json(file_name, result, folder_path=file_folder)
     return result
 
 
@@ -155,6 +159,6 @@ def get_time_data():
         result['timeline'] = date_list
         result['datarange'] = datarange
 
-        store_json(result)
+        store_json(file_name, result, folder_path=file_folder)
 
     return result
