@@ -3,35 +3,35 @@
         $.getJSON(js_geojson, callback);
     }
 } 
-var myChart = echarts.init(document.getElementById("main"));
+var myMapChart = echarts.init(document.getElementById("map_chart"));
+var myTimeChart = echarts.init(document.getElementById("time_chart"));
 
-refresh()
+showTimeChart()
 
 
-function refresh() {
-	getData();
-	var option
-	var pic_kind = $('#pic_kind option:selected').val()
-	if (pic_kind == 'map'){
-		option = getMapOption()
-	}
-	else if (pic_kind == 'time'){
-		option = getTimeOption()
-	}
-	else {
-	}
-	myChart.setOption(option);
+function showMapChart() {
+	chart_kind = 'map'
+	getData(chart_kind);
+	var option = getMapOption()
+	myMapChart.setOption(option);
 };
+
+function showTimeChart() {
+	chart_kind = 'time'
+	getData(chart_kind);
+	option = getTimeOption()
+	myTimeChart.setOption(option);
+}
+
 //get data from host
-function getData(){
-	var pic_kind = $('#pic_kind option:selected').val()
+function getData(chart_kind){
 	$.ajax({
 		//url that deal with request and compute
 		//async dafault is true, it means that
 		//the front will execute the rest script whether there is a return,
 		//in this place, async should be false
 		url: "/weibovis/getdata/",
-		data: { kind: pic_kind},
+		data: { kind: chart_kind},
 		cache: false,
 		async: false,
 		dataType: "json",
@@ -175,22 +175,23 @@ function getTimeOption(){
 		},
 		options: make_time_series()
 	}
+	return option
 }
 
 function make_time_series(){
 	options = []
 	part_options = {
 			title : {
-				'text':'2014-05-01 微博热点区域',
-				'subtext':'以丰台地区2014年5月份为例'
+				text:'2014-05-01 微博热点区域',
+				subtext:'以丰台地区2014年5月份为例'
 			},
 			toolbox : {
-				'show':true,
-				'feature':{
-					'mark':{'show':true},
-					'dataView':{'show':true,'readOnly':false},
-					'restore':{'show':true},
-					'saveAsImage':{'show':true}
+				show:true,
+				feature:{
+					mark:{show:true},
+					dataView:{show:true,readOnly:false},
+					restore:{show:true},
+					saveAsImage:{show:true}
 				}
 			},
 			dataRange: {
@@ -203,9 +204,10 @@ function make_time_series(){
 			},
 			series : [
 				{
-					'name':'timedata',
-					'type':'map',
-					'data': series_data['series']['2014-05-01']
+					name:'timedata',
+					type:'map',
+					mapType: 'FT',
+					data: series_data['series']['2014-05-01']
 				}
 			]
 		}

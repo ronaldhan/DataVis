@@ -125,8 +125,6 @@ def get_time_data():
         dates = WbPoint.objects.order_by(date_column).distinct(date_column)
         # final result
         result = dict()
-        # day_item one grid in one day's count
-        day_item = dict()
         # store all days data
         all_day = dict()
         # date string list
@@ -137,18 +135,24 @@ def get_time_data():
 
         for cdate in dates:
             one_date = cdate.cdate
-            date_str = cdate.cdate.strftime('%Y-%m-%d')
+            date_str = one_date.strftime('%Y-%m-%d')
             # day_data all grids in one day's count
             day_data = []
             for grid in grids:
                 # compute the point within the grid
                 # get the weibo point in one day and in the special grid
-                points = WbPoint.objects.filter(point__within=grid.geom).filter(cdate=one_date)
-                pntcnt = len(points)
+                points = WbPoint.objects.filter(cdate=one_date)
+                # print len(points)
+                inp = points.filter(point__within=grid.geom)
+                # print len(inp)
+                # print grid.geom, grid.x, grid.y
+                day_item = dict()
+                pntcnt = inp.count()
                 range_max = max(pntcnt, range_max)
                 day_item['name'] = grid.rid
                 day_item['value'] = pntcnt
                 day_item['geoCoord'] = [grid.x, grid.y]
+                # print day_item
                 day_data.append(day_item)
             all_day[date_str] = day_data
 
