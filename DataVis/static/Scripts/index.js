@@ -1,8 +1,13 @@
 ﻿echarts.util.mapData.params.params.FT = {
     getGeoJson: function (callback) {
-        $.getJSON(js_geojson, callback);
+        $.getJSON(json_ft, callback);
     }
-} 
+}
+echarts.util.mapData.params.params.GRID = {
+    getGeoJson: function (callback) {
+        $.getJSON(json_grid, callback);
+    }
+}
 var myMapChart = echarts.init(document.getElementById("map_chart"));
 var myTimeChart = echarts.init(document.getElementById("time_chart"));
 
@@ -161,6 +166,7 @@ function getMapOption(){
 
 function getTimeOption(){
 	option = {
+		backgroundColor: '#1b1b1b',
 		timeline:{
 			data:series_data['timeline'],
 			label : {
@@ -171,7 +177,7 @@ function getTimeOption(){
 					}
 			},
 			autoPlay : true,
-			playInterval : 1000
+			playInterval : 2000
 		},
 		options: make_time_series()
 	}
@@ -196,8 +202,8 @@ function make_time_series(){
 			},
 			dataRange: {
 				min: series_data['datarange']['min'],
-				max : series_data['datarange']['max'],
-				text:['高','低'],           // 文本，默认为数值文本
+				max : 50,
+				text:['高','低'],           // 文本，默认为数值文本series_data['datarange']['max']
 				calculable : true,
 				x: 'left',
 				color: ['orangered','yellow','lightskyblue']
@@ -206,7 +212,7 @@ function make_time_series(){
 				{
 					name:'timedata',
 					type:'map',
-					mapType: 'FT',
+					mapType: 'GRID',
 					data: series_data['series']['2014-05-01']
 				}
 			]
@@ -215,14 +221,15 @@ function make_time_series(){
 	dates = series_data['timeline']
 	dcount = dates.length
 	sdates = dates.slice(1, dcount)
-	option_item = {}
 
-	for (date in sdates){
+
+	for (var i=0;i<sdates.length;i++){
+		option_item = {}
 		data_list = []
 		data_dict = {}
-		data_dict['data'] = series_data['series'][date]
+		data_dict['data'] = series_data['series'][sdates[i]]
 		data_list.push(data_dict)
-		option_item['title'] = {'text': date + ' 微博热点区域'}
+		option_item['title'] = {'text': sdates[i] + ' 微博热点区域'}
 		option_item['series'] = data_list
 		options.push(option_item)
 	}
