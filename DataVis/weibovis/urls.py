@@ -8,4 +8,5 @@ urlpatterns = patterns('',
                        url(r'^mapdata/$', views.mapdata, name='mapdata'),
                        url(r'^getdata/$', views.getdata, name='getdata'),
                        url(r'^timedata/$', views.timedata, name='timedata'),
-                       url(r'^charts/$', views.bardata, name='bardata'))
+                       url(r'^charts/$', views.bardata, name='bardata'),
+                       url(r'^line/$', views.linedata, name='linedata'))
