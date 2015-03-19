@@ -43,7 +43,7 @@ class WbPoint(models.Model):
     created_at = models.CharField(max_length=50)
     source = models.CharField(max_length=50)
     cdate = models.DateField()
-    ctime = models.CharField(max_length=8)
+    ctime = models.TimeField()
     point = models.PointField()
     objects = models.GeoManager()
 

@@ -30,6 +30,10 @@ def timedata(request):
     return render_to_response('weibovis/index.html')
 
 
+def bardata(request):
+    return render_to_response('weibovis/charts.html')
+
+
 def getdata(request):
     # deal with the request from front, now it is map data
     querydict = request.GET
@@ -40,6 +44,8 @@ def getdata(request):
         result = get_map_data()
     elif kind == 'time':
         result = get_time_data()
+    elif kind == 'bar':
+        result = get_bar_data()
     else:
         pass
     return JsonResponse(result, safe=False)
@@ -162,6 +168,50 @@ def get_time_data():
         result['series'] = all_day
         result['timeline'] = date_list
         result['datarange'] = datarange
+
+        store_json(file_name, result, folder_path=file_folder)
+
+    return result
+
+
+def get_bar_data():
+    """
+    compute the data of night and day
+    :return: dict contains all to display
+    """
+    file_folder = os.path.join(settings.STATIC_PATH, 'Temple')
+    file_name = 'bar_data.json'
+    full_path = os.path.join(file_folder, file_name)
+
+    if os.path.exists(full_path):
+        result = read_json(full_path)
+    else:
+        date_column = 'cdate'
+        dates = WbPoint.objects.order_by(date_column).distinct(date_column)
+        # date string list
+        date_list = [cdate.cdate.strftime('%Y-%m-%d') for cdate in dates]
+        # final result
+        result = dict()
+        series = dict()
+        day_list, night_list, total_list = []
+
+        for cdate in dates:
+            one_date = cdate.cdate
+            points = WbPoint.objects.filter(cdate=one_date)
+            total_item = points.count()
+            inp = points.extra(where=['extract(hour from ctime) > 8']).extra(where=['extract(hour from ctime) < 22'])
+            day_item = inp.count()
+            night_item = total_item - day_item
+            day_list.append(day_item)
+            night_list.append(night_item)
+            total_list.append(total_item)
+
+        series['day'] = day_list
+        series['night'] = night_list
+        series['total'] = total_list
+        series['xaxis'] = date_list
+
+        result['series'] = series
 
         store_json(file_name, result, folder_path=file_folder)
 
