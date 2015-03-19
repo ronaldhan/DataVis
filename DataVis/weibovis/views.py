@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
+from __future__ import division
 import os
 import numpy as np
+import copy
 
 from django.conf import settings
 from django.shortcuts import render_to_response
@@ -34,6 +36,10 @@ def bardata(request):
     return render_to_response('weibovis/charts.html')
 
 
+def linedata(request):
+    return render_to_response('weibovis/line.html')
+
+
 def getdata(request):
     # deal with the request from front, now it is map data
     querydict = request.GET
@@ -46,6 +52,8 @@ def getdata(request):
         result = get_time_data()
     elif kind == 'bar':
         result = get_bar_data()
+    elif kind == 'line':
+        result = get_line_data()
     else:
         pass
     return JsonResponse(result, safe=False)
@@ -212,6 +220,57 @@ def get_bar_data():
         series['night'] = night_list
         series['total'] = total_list
         series['xaxis'] = date_list
+
+        result['series'] = series
+
+        store_json(file_name, result, folder_path=file_folder)
+
+    return result
+
+
+def get_line_data():
+    file_folder = os.path.join(settings.STATIC_PATH, 'Temple')
+    file_name = 'line_data.json'
+    full_path = os.path.join(file_folder, file_name)
+
+    if os.path.exists(full_path):
+        result = read_json(full_path)
+    else:
+        series = dict()
+        result = dict()
+        xaxis = [i for i in range(1, 25, 2)]
+        work_tmp_list = [0 for i in range(12)]
+        end_tmp_list = [0 for i in range(12)]
+
+        for day in range(1, 8):
+            points = WbPoint.objects.filter(cdate__week_day=day)
+            # compute how many days are this weekday
+            dates = points.distinct('cdate')
+            weekday_count = dates.count()
+            day_list = []
+            for middle in range(1, 25, 2):
+                inp = points.extra(where=['extract(hour from ctime) in (%s, %s)' % (str(middle - 1), str(middle))])
+                hour_item = inp.count()
+                day_list.append(hour_item)
+
+            for j in range(12):
+                day_list[j] /= weekday_count
+
+            series['t%s' % str(day)] = day_list
+
+            day_list_copy = copy.copy(day_list)
+            for i in range(12):
+                if day < 6:
+                    work_tmp_list[i] += day_list_copy[i]
+                else:
+                    end_tmp_list[i] += day_list_copy[i]
+
+        work_tmp_list[i] /= 5
+        end_tmp_list[i] /= 2
+
+        series['workday'] = work_tmp_list
+        series['weekend'] = end_tmp_list
+        series['xaxis'] = xaxis
 
         result['series'] = series
 
