@@ -193,7 +193,9 @@ def get_bar_data():
         # final result
         result = dict()
         series = dict()
-        day_list, night_list, total_list = []
+        day_list = []
+        night_list = []
+        total_list = []
 
         for cdate in dates:
             one_date = cdate.cdate

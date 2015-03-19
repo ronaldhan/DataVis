@@ -74,26 +74,20 @@ function getBarOption(){
                 type:'bar',
                 itemStyle: {        // 系列级个性化样式，纵向渐变填充
                     normal: {
-                        barBorderColor:'red',
+                        barBorderColor:'#FF6600',
                         barBorderWidth: 2,
-                        color : #FF6600
+                        color : '#FF6600'
                     },
                     emphasis: {
                         barBorderWidth: 2,
                         barBorderColor:'green',
-                        color: (function (){
-                            var zrColor = require('zrender/tool/color');
-                            return zrColor.getLinearGradient(
-                                0, 400, 0, 300,
-                                [[0, 'red'],[1, 'orange']]
-                            )
-                        })(),
+                        color:'orange',
                         label : {
                             show : true,
                             position : 'top',
                             formatter : "{a} {b} {c}",
                             textStyle : {
-                                color: 'blue'
+                                color: '#999999'
                             }
                         }
                     }
@@ -106,12 +100,12 @@ function getBarOption(){
                 itemStyle: {                // 系列级个性化
                     normal: {
                         barBorderWidth: 2,
-                        barBorderColor:'tomato',
-                        color: '#00CCCC'
+                        barBorderColor:'#99CC99',
+                        color: '#99CC99'
                     },
                     emphasis: {
-                        barBorderColor:'red',
-                        color: 'blue'
+                        barBorderColor:'#CCFFCC',
+                        color: '#CCFFCC'
                     }
                 },
                 data:series_data['series']['night']
@@ -122,17 +116,11 @@ function getBarOption(){
                 itemStyle: {
                     normal: {                   // 系列级个性化，横向渐变填充
                         borderRadius: 2,
-                        color : (function (){
-                            var zrColor = require('zrender/tool/color');
-                            return zrColor.getLinearGradient(
-                                0, 0, 1000, 0,
-                                [[0, 'rgba(30,144,255,0.8)'],[1, 'rgba(138,43,226,0.8)']]
-                            )
-                        })(),
+                        color : '#33CCCC',
                         label : {
                             show : true,
                             textStyle : {
-                                fontSize : '16',
+                                fontSize : '12',
                                 fontFamily : '微软雅黑',
                                 fontWeight : 'bold'
                             }
