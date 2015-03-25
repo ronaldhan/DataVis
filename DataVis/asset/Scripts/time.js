@@ -1,26 +1,12 @@
-﻿echarts.util.mapData.params.params.FT = {
-    getGeoJson: function (callback) {
-        $.getJSON(json_ft, callback);
-    }
-}
 echarts.util.mapData.params.params.GRID = {
     getGeoJson: function (callback) {
         $.getJSON(json_grid, callback);
     }
 }
-var myMapChart = echarts.init(document.getElementById("map_chart"));
+
 var myTimeChart = echarts.init(document.getElementById("time_chart"));
 
-showMapChart()
-//showTimeChart()
-
-
-function showMapChart() {
-	chart_kind = 'map'
-	getData(chart_kind);
-	var option = getMapOption()
-	myMapChart.setOption(option);
-};
+showTimeChart()
 
 function showTimeChart() {
 	chart_kind = 'time'
@@ -29,7 +15,6 @@ function showTimeChart() {
 	myTimeChart.setOption(option);
 }
 
-//get data from host
 function getData(chart_kind){
 	$.ajax({
 		//url that deal with request and compute
@@ -55,115 +40,6 @@ function getData(chart_kind){
 		}
 	});
 };
-
-//get map option
-function getMapOption(){
-	var option = {
-		backgroundColor: '#1b1b1b',
-		color: [
-			'rgba(255, 255, 255, 0.8)',
-			'rgba(14, 241, 242, 0.8)',
-			'rgba(37, 140, 249, 0.8)'
-		],
-		title : {
-			text: '微博信息可视化',
-			subtext: '丰台地区',
-			x:'center',
-			textStyle : {
-				color: '#fff'
-			}
-		},
-		legend: {
-			orient: 'vertical',
-			x:'left',
-			data:['high', 'middle', 'low'],
-			textStyle : {
-				color: '#fff'
-			}
-		},
-		dataRange: {
-			min: series_data['datarange']['min'],
-			max: series_data['datarange']['max'],
-			calculable : true,
-			color: ['red','yellow','lightgreen'],
-			textStyle : {
-				color: '#fff'
-			}
-		},
-		toolbox: {
-			show : true,
-			orient : 'vertical',
-			x: 'right',
-			y: 'center',
-			feature : {
-				mark : {show: true},
-				dataView : {show: true, readOnly: false},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		series: [
-			{
-				name: 'low',
-				type: 'map',
-				mapType: 'FT',
-				scaleLimit : {
-					max : 2,
-					min : 0.8
-				},
-				itemStyle:{
-					normal:{
-						borderColor:'rgba(100,149,237,1)',
-						borderWidth:0.5,
-						areaStyle:{
-							color: '#1b1b1b'
-						}
-					}
-				},
-				data : [],
-				markPoint : {
-					symbolSize: 0.5,
-					large: true,
-					effect : {
-						show: false
-					},
-					data : series_data['series']['low']
-				}
-			},
-			{
-				name: 'middle',
-				type: 'map',
-				mapType: 'FT',
-				data : [],
-				markPoint : {
-					symbolSize: 1.5,
-					large: true,
-					effect : {
-						show: false
-					},
-					data : series_data['series']['middle']
-				}
-			},
-			{
-				name: 'high',
-				type: 'map',
-				mapType: 'FT',
-				hoverable : false,
-				data : [],
-				markPoint : {
-					symbol : 'diamond',
-					symbolSize: 5,
-					large: true,
-					effect : {
-						show: true
-					},
-					data : series_data['series']['high']
-				}
-			}
-		]
-	}
-	return option
-}
 
 function getTimeOption(){
 	option = {
@@ -236,4 +112,3 @@ function make_time_series(){
 	}
 	return options
 }
-

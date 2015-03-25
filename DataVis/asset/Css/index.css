@@ -1,0 +1,34 @@
+body{
+    text-align:center
+}
+
+#main {
+    margin: 0 auto;
+    width: 1000px;
+    border: 1px solid #000
+}
+
+#map_chart {
+    height: 600px;
+    padding: 10px;
+}
+
+#time_chart {
+    height: 600px;
+    padding: 10px;
+}
+
+#bar_chart {
+    height: 600px;
+    padding: 10px;
+}
+
+#seven_line_chart {
+    height: 600px;
+    padding: 10px;
+}
+
+#two_line_chart {
+    height: 600px;
+    padding: 10px;
+}

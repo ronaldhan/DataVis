@@ -29,7 +29,7 @@ def mapdata(request):
 
 
 def timedata(request):
-    return render_to_response('weibovis/index.html')
+    return render_to_response('weibovis/time.html')
 
 
 def bardata(request):

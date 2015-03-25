@@ -93,16 +93,17 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
+# https://docs.djangoproject.com/en/1.7/howto/asset-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/asset/'
 
-STATIC_PATH = os.path.join(PROJECT_PATH, 'static')
+STATIC_PATH = os.path.join(PROJECT_PATH, 'asset')
 
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
 
+STATIC_ROOT = os.path.join(PROJECT_PATH, "static/")
 
 # LOGGING = {
 #     'version': 1,
