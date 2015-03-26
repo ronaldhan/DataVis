@@ -1,5 +1,5 @@
 <uwsgi>
-    <http>127.0.0.1:8077</http>
+    <http>127.0.0.1:8080</http>
     <module>DataVis.wsgi:application</module>
     <processes>4</processes>
     <chdir>/home/ronald/Documents/github/DataVis/DataVis</chdir>

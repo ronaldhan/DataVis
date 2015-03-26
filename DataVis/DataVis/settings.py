@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'weibovis',
+    'mod_wsgi.server',
 )
 
 MIDDLEWARE_CLASSES = (
