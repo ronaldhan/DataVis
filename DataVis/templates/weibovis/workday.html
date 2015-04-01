@@ -1,0 +1,11 @@
+{% extends 'weibovis/base.html' %}
+
+{% load static %}
+
+{% block body_block %}
+    <div id="workday_chart"></div>
+{% endblock %}
+
+{% block script_block %}
+    <script type="text/javascript" src="{% static 'Scripts/workday.js' %}"></script>
+{% endblock %}

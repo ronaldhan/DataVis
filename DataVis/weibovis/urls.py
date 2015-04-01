@@ -9,4 +9,6 @@ urlpatterns = patterns('',
                        url(r'^getdata/$', views.getdata, name='getdata'),
                        url(r'^time/$', views.timedata, name='timedata'),
                        url(r'^charts/$', views.bardata, name='bardata'),
-                       url(r'^line/$', views.linedata, name='linedata'))
+                       url(r'^line/$', views.linedata, name='linedata'),
+                       url(r'^workday/$', views.workdaydata, name='workdaydata'),
+                       url(r'^worknight/$', views.worknightdata, name='worknightdata'))

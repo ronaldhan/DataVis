@@ -1,0 +1,21 @@
+﻿<!DCOTYPE html>
+{% load static %}
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>微博信息可视化</title>
+		<script src="{% static 'Scripts/ecom/esl/esl.js' %}"></script>
+		<script src="{% static 'Scripts/dist/jquery.min.js' %}"></script>
+		<script src="{% static 'Scripts/dist/echarts-all.js' %}"></script>
+		<link href="{% static 'Css/index.css' %}" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div id="main">
+			{% block body_block %}{% endblock %}
+		</div>
+		<script language="JavaScript">
+			var json_ft = "{% static 'Scripts/geoJson/FT.json' %}"
+		</script>
+		{% block script_block %}{% endblock %}
+	</body>
+</html>
