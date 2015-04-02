@@ -32,12 +32,24 @@ def timedata(request):
     return render_to_response('weibovis/time.html')
 
 
+def timegif(request):
+    return render_to_response('weibovis/time-pic.html')
+
+
 def bardata(request):
     return render_to_response('weibovis/charts.html')
 
 
 def linedata(request):
     return render_to_response('weibovis/line.html')
+
+
+def workdaydata(request):
+    return render_to_response('weibovis/workday.html')
+
+
+def worknightdata(request):
+    return render_to_response('weibovis/worknight.html')
 
 
 def getdata(request):
@@ -54,6 +66,8 @@ def getdata(request):
         result = get_bar_data()
     elif kind == 'line':
         result = get_line_data()
+    elif kind == 'workday':
+        result = get_workday_data()
     else:
         pass
     return JsonResponse(result, safe=False)
@@ -276,4 +290,67 @@ def get_line_data():
 
         store_json(file_name, result, folder_path=file_folder)
 
+    return result
+
+
+def get_workday_data():
+    file_folder = os.path.join(settings.STATIC_PATH, 'Temple')
+    file_name = 'workday_data.json'
+    full_path = os.path.join(file_folder, file_name)
+
+    if os.path.exists(full_path):
+        result = read_json(full_path)
+    else:
+        series_data = dict()
+        result = dict()
+        high = []
+        middle = []
+        low = []
+        datarange = dict()
+        range_max = 0
+        day_data = []
+        stats_list = []
+
+        # get the data in workday
+        points = WbPoint.objects.filter(cdate__week_day_between=(1, 5))
+        # get the data in work time, 9-17
+        inp = points.extra(where=['extract(hour from ctime) > 8']).extra(where=['extract(hour from ctime) < 18'])
+        # get all the girds
+        grids = Grid.objects.all()
+
+        for grid in grids:
+            dnp = inp.filter(point__within=grid.geom)
+            day_item = dict()
+            pntcnt = dnp.count()
+            range_max = max(pntcnt, range_max)
+            day_item['name'] = grid.rid
+            day_item['value'] = pntcnt
+            day_item['geoCoord'] = [grid.x, grid.y]
+            day_data.append(day_item)
+            stats_list.append(pntcnt)
+
+        # need to transform the python list to numpy array to use the copy attribution
+        values = np.asarray(stats_list)
+        nbreaks = get_data_breaks(values, k=3)
+
+        for i in range(len(stats_list)):
+            pn = stats_list[i]
+            if pn < nbreaks[0]:
+                low.append(day_data[i])
+            elif pn > nbreaks[1]:
+                high.append(day_data[i])
+            else:
+                middle.append(day_data[i])
+
+        datarange['max'] = range_max
+        datarange['min'] = 0
+
+        series_data['high'] = high
+        series_data['middle'] = middle
+        series_data['low'] = low
+
+        result['series'] = series_data
+        result['datarange'] = datarange
+
+        store_json(file_name, result, folder_path=file_folder)
     return result

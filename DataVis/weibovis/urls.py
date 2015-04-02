@@ -11,4 +11,5 @@ urlpatterns = patterns('',
                        url(r'^charts/$', views.bardata, name='bardata'),
                        url(r'^line/$', views.linedata, name='linedata'),
                        url(r'^workday/$', views.workdaydata, name='workdaydata'),
-                       url(r'^worknight/$', views.worknightdata, name='worknightdata'))
+                       url(r'^worknight/$', views.worknightdata, name='worknightdata'),
+                       url(r'^timegif/$', views.timegif, name='timegif'))
