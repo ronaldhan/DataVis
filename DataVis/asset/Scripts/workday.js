@@ -41,7 +41,7 @@ function getData(chart_kind){
 	});
 };
 
-function getMapOption(){
+function getWorkDayOption(){
 	var option = {
 		backgroundColor: '#1b1b1b',
 		color: [

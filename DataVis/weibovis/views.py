@@ -312,7 +312,8 @@ def get_workday_data():
         stats_list = []
 
         # get the data in workday
-        points = WbPoint.objects.filter(cdate__week_day_between=(1, 5))
+        # week_day lookup return integer in [1,7], the sunday is 1 and saturday is 6
+        points = WbPoint.objects.extra(select={'weekday': "cdate__week_day > 1"}).extra(select={'weekday': "cdate__week_day < 7"})
         # get the data in work time, 9-17
         inp = points.extra(where=['extract(hour from ctime) > 8']).extra(where=['extract(hour from ctime) < 18'])
         # get all the girds
