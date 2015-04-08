@@ -20,9 +20,9 @@ class StatsData(models.Model):
 
     def get_dict_xy(self):
         result = dict()
-        result['x'] = self.x
-        result['y'] = self.y
-        result['value'] = self.pntcnt
+        result['lng'] = self.x
+        result['lat'] = self.y
+        result['count'] = self.pntcnt
         return result
 
     def __unicode__(self):
