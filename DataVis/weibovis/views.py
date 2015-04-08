@@ -53,6 +53,10 @@ def worknightdata(request):
     return render_to_response('weibovis/worknight.html')
 
 
+def hmmap(request):
+    return render_to_response('weibovis/hm-map.html')
+
+
 def getdata(request):
     # deal with the request from front, now it is map data
     querydict = request.GET
@@ -421,6 +425,49 @@ def get_worknight_data():
 
         result['series'] = series_data
         result['datarange'] = datarange
+
+        store_json(file_name, result, folder_path=file_folder)
+    return result
+
+
+def getheatmapdata(request):
+    # deal with the request from front, now it is map data
+    querydict = request.GET
+    kind = querydict['kind']
+
+    if kind == 'map':
+        # construct map data
+        result = get_hm_map_data()
+    else:
+        pass
+
+    return JsonResponse(result, safe=False)
+
+
+def get_hm_map_data():
+    file_folder = os.path.join(settings.STATIC_PATH, 'Temple')
+    file_name = 'hm_map_data.json'
+    full_path = os.path.join(file_folder, file_name)
+
+    if os.path.exists(full_path):
+        result = read_json(full_path)
+    else:
+        series_data = dict()
+        result = dict()
+        values = []
+
+        stats_list = StatsData.objects.all()
+
+        for item in stats_list:
+            values.append(item.get_dict_xy())
+
+        cmax = stats_list.aggregate(Max('pntcnt'))['pntcnt__max']
+
+        series_data['max'] = cmax
+        series_data['min'] = 0
+        series_data['data'] = values
+
+        result['series'] = series_data
 
         store_json(file_name, result, folder_path=file_folder)
     return result

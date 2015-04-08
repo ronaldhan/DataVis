@@ -1,0 +1,11 @@
+{% extends 'weibovis/base-hm.html' %}
+
+{% load static %}
+
+{% block body_block %}
+    <div id="hmmap_chart"></div>
+{% endblock %}
+
+{% block script_block %}
+    <script type="text/javascript" src="{% static 'Scripts/hmmap.js' %}"></script>
+{% endblock %}

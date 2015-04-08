@@ -18,6 +18,13 @@ class StatsData(models.Model):
     def get_value(self):
         return self.pntcnt
 
+    def get_dict_xy(self):
+        result = dict()
+        result['x'] = self.x
+        result['y'] = self.y
+        result['value'] = self.pntcnt
+        return result
+
     def __unicode__(self):
         return "coordinates: %s,%s " (str(self.x), str(self.y))
 
