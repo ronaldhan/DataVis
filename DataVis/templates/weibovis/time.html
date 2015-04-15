@@ -1,21 +1,19 @@
-﻿<!DCOTYPE html>
+﻿{% extends 'weibovis/base.html' %}
+
 {% load static %}
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>微博信息可视化</title>
-		<script src="{% static 'Scripts/ecom/esl/esl.js' %}"></script>
-		<script src="{% static 'Scripts/dist/jquery.min.js' %}"></script>
-		<script src="{% static 'Scripts/dist/echarts-all.js' %}"></script>
-		<link href="{% static 'Css/index.css' %}" rel="stylesheet" type="text/css" />
-	</head>
-	<body>
-		<div id="main">
-			<div id="time_chart"></div>
-		</div>
-		<script language="JavaScript">
-			var json_grid = "{% static 'Scripts/geoJson/GRID.json' %}"
-		</script>
-        <script type="text/javascript" src="{% static 'Scripts/time.js' %}"></script>
-	</body>
-</html>
+
+{% block result_block %}
+	<p>以天为时间尺度，统计每个栅格内微博活跃情况，并以时间序列形式展示，
+		能够观察丰台地区每日活跃区域的变化情况。数据显示，东北部地区保持较高的活跃度。</p>
+{% endblock %}
+
+{% block body_block %}
+    <div id="time_chart"></div>
+{% endblock %}
+
+{% block script_block %}
+	<script language="JavaScript">
+		var json_grid = "{% static 'Scripts/geoJson/GRID.json' %}"
+	</script>
+	<script type="text/javascript" src="{% static 'Scripts/time.js' %}"></script>
+{% endblock %}

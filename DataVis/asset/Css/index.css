@@ -6,9 +6,21 @@
     height: 1020px;
 }
 
+.content-pic {
+    height: 720px;
+}
 .main {
     height: 500px;
     padding-left: 0;
+}
+
+img {
+    width: 99%;
+    height: 620px;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    border-style: solid;
 }
 
 .sidebar {
@@ -24,10 +36,13 @@
     line-height: 1.75;
 }
 
-.separate {
+.comment {
     display: block;
-    height: 15px;
-    padding: 5px 0;
+    height: 100px;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    border-style: solid;
 }
 
 #map_chart {
