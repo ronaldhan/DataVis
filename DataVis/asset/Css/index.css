@@ -1,49 +1,61 @@
-body{
-    text-align:center
+.content {
+    height: 500px;
 }
 
-#main {
-    margin: 0 auto;
-    width: 1000px;
-    border: 1px solid #000
+.main {
+    height: inherit;
+    padding-left: 0;
+}
+
+.sidebar {
+    height: 490px;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    border-style: solid;
+}
+
+.sidebar p {
+    font-size: 16px;
+    line-height: 1.75;
 }
 
 #map_chart {
-    height: 600px;
-    padding: 10px;
+    height: 490px;
+    margin: 0 auto;
 }
 
 #time_chart {
-    height: 600px;
-    padding: 10px;
+    height: 480px;
+    margin: 0 auto;
 }
 
 #bar_chart {
-    height: 600px;
-    padding: 10px;
+    height: 480px;
+    margin: 0 auto;
 }
 
 #seven_line_chart {
-    height: 600px;
-    padding: 10px;
+    height: 480px;
+    margin: 0 auto;
 }
 
 #two_line_chart {
-    height: 600px;
-    padding: 10px;
+    height: 480px;
+    margin: 0 auto;
 }
 
 #workday_chart {
-    height: 600px;
-    padding: 10px;
+    height: 480px;
+    margin: 0 auto;
 }
 
 #worknight_chart {
-    height: 600px;
-    padding: 10px;
+    height: 480px;
+    margin: 0 auto;
 }
 
 #hmmap_chart {
-    height: 600px;
-    padding: 10px;
+    height: 480px;
+    margin: 0 auto;
 }

@@ -1,21 +1,17 @@
-﻿<!DCOTYPE html>
+﻿{% extends 'weibovis/base.html' %}
+
 {% load static %}
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>微博信息可视化</title>
-		<script src="{% static 'Scripts/ecom/esl/esl.js' %}"></script>
-		<script src="{% static 'Scripts/dist/jquery.min.js' %}"></script>
-		<script src="{% static 'Scripts/dist/echarts-all.js' %}"></script>
-		<link href="{% static 'Css/index.css' %}" rel="stylesheet" type="text/css" />
-	</head>
-	<body>
-		<div id="main">
-			<div id="map_chart"></div>
-		</div>
-		<script language="JavaScript">
-			var json_ft = "{% static 'Scripts/geoJson/FT.json' %}"
-		</script>
-        <script type="text/javascript" src="{% static 'Scripts/index.js' %}"></script>
-	</body>
-</html>
+
+{% block result_block %}
+	<p>利用<mark>natural breaks</mark>算法，将数据划分为“高、中、低”三类。
+		能够明显看出少数地点的亮度很高，大部分地区的则是灰暗的。签到较高地区的分布直观看较为分散，
+		具体而言，东北部分高亮点较多，有空间集聚的态势；东南部分和西南有独立的亮点，值得注意。</p>
+{% endblock %}
+
+{% block body_block %}
+    <div id="map_chart"></div>
+{% endblock %}
+
+{% block script_block %}
+	<script type="text/javascript" src="{% static 'Scripts/index.js' %}"></script>
+{% endblock %}
