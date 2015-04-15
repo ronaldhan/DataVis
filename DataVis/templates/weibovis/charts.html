@@ -1,20 +1,19 @@
-﻿<!DCOTYPE html>
+﻿{% extends 'weibovis/base.html' %}
+
 {% load static %}
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>微博信息可视化</title>
-		<script src="{% static 'Scripts/ecom/esl/esl.js' %}"></script>
-		<script src="{% static 'Scripts/dist/jquery.min.js' %}"></script>
-		<script src="{% static 'Scripts/dist/echarts-all.js' %}"></script>
-		<link href="{% static 'Css/index.css' %}" rel="stylesheet" type="text/css" />
-	</head>
-	<body>
-		<div id="main">
-			<div id="bar_chart"></div>
-			<br />
-			<br />
-		</div>
-        <script type="text/javascript" src="{% static 'Scripts/charts.js' %}"></script>
-	</body>
-</html>
+
+{% block result_block %}
+	<p>以天为时间尺度，并划分为白天和夜晚分别统计</p>
+	<p>五一是全国性的假期，在假期间，微博发布量明显较高，随着假期的推进，发布量逐渐下降。
+		对于一个月中非假期时间，以周为单位，5月份中周六分别是3、10、17、24、31号，周日为4、11、18、25号，
+		从图中可以看出周末是本周微博发布量的高点，并随着周末结束，工作日开始，发布量明显下滑。
+		可以认为，一周内，工作日和周末存在明显的差异，周末期间发布量较高。</p>
+{% endblock %}
+
+{% block body_block %}
+    <div id="bar_chart"></div>
+{% endblock %}
+
+{% block script_block %}
+	<script type="text/javascript" src="{% static 'Scripts/charts.js' %}"></script>
+{% endblock %}
