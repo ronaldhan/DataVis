@@ -1,10 +1,19 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>weibovis</title>
+    <title>关于</title>
+    <link href="{% static 'Css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h3>hello world</h3>
+    <div class="container">
+        <div class="page-header">
+            <h2>微博数据分析系统</h2>
+        </div>
+        <p>以新浪微博数据为基础，丰台地区为研究区域，对丰台地区空间结构、社群活动规律进行分析。</p>
+    </div>
 </body>
 </html>

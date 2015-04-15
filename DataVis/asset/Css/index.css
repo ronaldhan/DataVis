@@ -2,8 +2,12 @@
     height: 500px;
 }
 
+.content-other {
+    height: 1020px;
+}
+
 .main {
-    height: inherit;
+    height: 500px;
     padding-left: 0;
 }
 
@@ -20,42 +24,48 @@
     line-height: 1.75;
 }
 
+.separate {
+    display: block;
+    height: 15px;
+    padding: 5px 0;
+}
+
 #map_chart {
     height: 490px;
     margin: 0 auto;
 }
 
 #time_chart {
-    height: 480px;
+    height: 490px;
     margin: 0 auto;
 }
 
 #bar_chart {
-    height: 480px;
+    height: 490px;
     margin: 0 auto;
 }
 
 #seven_line_chart {
-    height: 480px;
+    height: 490px;
     margin: 0 auto;
 }
 
 #two_line_chart {
-    height: 480px;
+    height: 490px;
     margin: 0 auto;
 }
 
 #workday_chart {
-    height: 480px;
+    height: 490px;
     margin: 0 auto;
 }
 
 #worknight_chart {
-    height: 480px;
+    height: 490px;
     margin: 0 auto;
 }
 
 #hmmap_chart {
-    height: 480px;
+    height: 490px;
     margin: 0 auto;
 }
