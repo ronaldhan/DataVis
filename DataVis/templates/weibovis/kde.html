@@ -1,0 +1,16 @@
+{% extends 'weibovis/base-pic.html' %}
+
+{% load static %}
+
+{% block result_block %}
+	<p><mark>核密度估计法( kernel density estimation, KDE)</mark>主要是借助一个移动的单元格(相当于窗口)对点或线格局的密度进行估计。
+		通过核密度估计方法，能够看到数据的密度核心，进而发现空间集聚情况。</p>
+	<p>图中的核心可以认为是空间集聚中心</p>
+{% endblock %}
+
+{% block body_block %}
+    <img src="{% static 'Image/kde.png' %}" alt="spatial analysis using kernel">
+{% endblock %}
+
+{% block script_block %}
+{% endblock %}

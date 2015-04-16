@@ -14,4 +14,6 @@ urlpatterns = patterns('',
                        url(r'^workday/$', views.workdaydata, name='workdaydata'),
                        url(r'^worknight/$', views.worknightdata, name='worknightdata'),
                        url(r'^timegif/$', views.timegif, name='timegif'),
-                       url(r'^hm/map/$', views.hmmap, name='hmmap'))
+                       url(r'^hm/map/$', views.hmmap, name='hmmap'),
+                       url(r'^hotmap/$', views.hotmap, name='hotmap'),
+                       url(r'^kde/$', views.kde, name='kde'))
