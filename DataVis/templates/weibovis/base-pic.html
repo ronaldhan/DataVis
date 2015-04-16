@@ -21,48 +21,48 @@
 			</div>
 			<div class="navbar navbar-default" role="navigation">
 			  <div class="navbar-header">
-			  	<a class="navbar-brand" href="#">微博数据分析</a>
+			  	<a class="navbar-brand" href="/weibovis/about/">微博数据分析</a>
 			  </div>
 		      <div>
 			 	<ul class="nav navbar-nav">
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">热点分析<strong class="caret"></strong></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">热点分析<strong class="caret"></strong></a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="/map/">活跃度地图</a>
+								<a href="/weibovis/map/">活跃度地图</a>
 							</li>
 							<li>
-								<a href="#">Hotmap分析</a>
+								<a href="/weibovis/hotmap/">Hotmap分析</a>
 							</li>
 							<li>
-								<a href="#">核密度分析</a>
+								<a href="/weibovis/kde/">核密度分析</a>
 							</li>
 							<li>
-								<a href="/hm/map">热力图</a>
+								<a href="/weibovis/hm/map">热力图</a>
 							</li>
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">社群模式分析<strong class="caret"></strong></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">社群模式分析<strong class="caret"></strong></a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="#">工作日VS非工作日</a>
+								<a href="/weibovis/line/">工作日VS非工作日</a>
 							</li>
 							<li>
-								<a href="#">工作时间VS非工作时间</a>
+								<a href="/weibovis/charts/">工作时间VS非工作时间</a>
 							</li>
 							<li>
-								<a href="#">工作日-工作时间</a>
+								<a href="/weibovis/workday/">工作日-工作时间</a>
 							</li>
 							<li>
-								<a href="#">工作日-非工作时间</a>
+								<a href="/weibovis/worknight/">工作日-非工作时间</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="nav pull-right">
 					<li>
-						<a href="/about/">关于</a>
+						<a href="/weibovis/about/">关于</a>
 					</li>
 				</ul>
 		      </div>
@@ -83,6 +83,7 @@
 				<pre class="text-center">版权所有：北京市测绘设计研究院 技术支持：北京市测绘设计研究院 ICP 备案序号：京 ICP 备 13034775 号<br />地址：北京市海淀区羊坊店路15号 邮编：100038 电话：(010) 63985887 传真：(010)63963144 E-Mail：bism@bism.cn</pre>
 			</div>
 		</div>
+		<script src="{% static 'Scripts/dist/bootstrap.min.js' %}"></script>
 		{% block script_block %}{% endblock %}
 	</body>
 </html>
