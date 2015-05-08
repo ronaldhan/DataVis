@@ -6,13 +6,14 @@ import copy
 from itertools import chain, islice
 
 from django.conf import settings
+from django.db import connection
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Max, Min
 
 import pysal.esda.mapclassify as mpc
 
-from weibovis.models import StatsData, Grid, WbPoint
+from weibovis.models import StatsData, Grid, WbPoint, UserCount, WbPointPop
 from weibovis.utils import store_json, read_json
 
 
@@ -473,6 +474,58 @@ def get_hm_map_data():
         series_data['max'] = cmax
         series_data['min'] = 0
         series_data['data'] = values
+
+        result['series'] = series_data
+
+        store_json(file_name, result, folder_path=file_folder)
+    return result
+
+
+def getpathdata(request):
+    # deal with the request from front, now it is map data
+    querydict = request.GET
+    kind = querydict['kind']
+
+    if kind == 'path':
+        # construct map data
+        result = get_path_data()
+    else:
+        pass
+
+    return JsonResponse(result, safe=False)
+
+
+def get_path_data():
+    file_folder = os.path.join(settings.STATIC_PATH, 'Temple')
+    file_name = 'path_data.json'
+    full_path = os.path.join(file_folder, file_name)
+
+    if os.path.exists(full_path):
+        result = read_json(full_path)
+    else:
+        series_data = dict()
+        result = dict()
+
+        # get the top 50 users
+        users = UserCount.objects.all()[:50]
+        for user in users:
+            # get all the records from pop table and order by datetime
+            # this example shows how to use the postgis function in the queryset
+            # using the values function to return json formatter result like
+            # [{'y': 39.84944, 'x': 116.38768, 'uid': 3307285955L}, , ,]
+            # user_records = WbPointPop.objects.filter(uid=user.uid).order_by('cdate', 'ctime').extra(
+            #     select={
+            #         'x': 'st_x("point")',
+            #         'y': 'st_y("point")'
+            #     }).values('uid', 'x', 'y')
+            # use the connection to execute raw sql to get result
+            cursor = connection.cursor()
+            cursor.execute('select st_x(point) as x, st_y(point) as y '
+                           'from weibovis_wbpointpop where uid = %s group by point '
+                           'order by min(created_at)', [user.uid])
+            # the points is a array, the uid is used as key
+            points = cursor.fetchall()
+            series_data['%s' % user.uid] = points
 
         result['series'] = series_data
 

@@ -56,3 +56,24 @@ class WbPoint(models.Model):
 
     def __unicode__(self):
         return "source: %s" % self.source
+
+
+class UserCount(models.Model):
+    uid = models.BigIntegerField()
+    count = models.IntegerField()
+
+    def __unicode__(self):
+        return "%s : %s" % (self.uid, self.count)
+
+
+class WbPointPop(models.Model):
+    created_at = models.CharField(max_length=50)
+    source = models.CharField(max_length=50)
+    cdate = models.DateField()
+    ctime = models.TimeField()
+    point = models.PointField()
+    uid = models.BigIntegerField()
+    objects = models.GeoManager()
+
+    def __unicode__(self):
+        return "source: %s" % self.source
