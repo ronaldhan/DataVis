@@ -21,11 +21,11 @@ function showPathMapChart(){
 	for (user in user_points) {
 		points = user_points[user]
 		var path = []
-		for (point in points) {
-			path.append(new BMap.Point(point[0], point[1]))
+		for (var i = 0; i< points.length; i++) {
+			path.push(new BMap.Point(points[i][0], points[i][1]))
 		}
 		var polyline = new BMap.Polyline(path, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
-		map.addOverlayer(polyline)
+		map.addOverlay(polyline)
 	}
 }
 

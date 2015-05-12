@@ -65,6 +65,10 @@ def kde(request):
     return render_to_response('weibovis/kde.html')
 
 
+def path(request):
+    return render_to_response('weibovis/path.html')
+
+
 def getdata(request):
     # deal with the request from front, now it is map data
     querydict = request.GET

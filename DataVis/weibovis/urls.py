@@ -17,4 +17,5 @@ urlpatterns = patterns('',
                        url(r'^timegif/$', views.timegif, name='timegif'),
                        url(r'^hm/map/$', views.hmmap, name='hmmap'),
                        url(r'^hotmap/$', views.hotmap, name='hotmap'),
-                       url(r'^kde/$', views.kde, name='kde'))
+                       url(r'^kde/$', views.kde, name='kde'),
+                       url(r'^path/$', views.path, name='path'))
