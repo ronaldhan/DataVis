@@ -77,3 +77,38 @@ class WbPointPop(models.Model):
 
     def __unicode__(self):
         return "source: %s" % self.source
+
+
+class SystemModule(models.Model):
+    gid = models.IntegerField()
+    mcode = models.CharField(max_length=4)
+    mparent = models.CharField(max_length=2)
+    morder = models.CharField(max_length=2)
+    mname = models.CharField(max_length=20)
+
+    def __unicode__(self):
+        return "module code: %s" % self.mcode
+
+
+class SystemRole(models.Model):
+    gid = models.IntegerField()
+    rname = models.CharField(max_length=20)
+    rnote = models.CharField(max_length=20)
+    rpermission = models.CharField(max_length=100)
+    rtype = models.CharField(max_length=2)
+
+    def get_permission(self):
+        return str(self.rpermission).split(',')
+
+    def __unicode__(self):
+        return "role name: %s, role permission" % (self.rname, self.rpermission)
+
+
+class SystemUser(models.Model):
+    uid = models.IntegerField()
+    uname = models.CharField(max_length=20)
+    upwd = models.CharField(max_length=50)
+    rtype = models.CharField(max_length=2)
+
+    def __unicode__(self):
+        return "user name: %s, user role type" % (self.uname, self.rtype)
