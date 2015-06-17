@@ -10,11 +10,13 @@ from django.db import connection
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Max, Min
+from django.template import RequestContext
 
 import pysal.esda.mapclassify as mpc
 
-from weibovis.models import StatsData, Grid, WbPoint, UserCount, WbPointPop
+from weibovis.models import StatsData, Grid, WbPoint, UserCount, WbPointPop, SystemUser
 from weibovis.utils import store_json, read_json
+from weibovis.forms import UserForm, SystemUserForm
 
 
 def index(request):
@@ -535,3 +537,38 @@ def get_path_data():
 
         store_json(file_name, result, folder_path=file_folder)
     return result
+
+
+def register(request):
+    # get the request context
+    context = RequestContext(request)
+
+    # to tell if the registion success
+    registered = False
+
+    if request.method == 'POST':
+        user_form = UserForm(data=request.POST)
+        system_user_form = SystemUserForm(data=request.POST)
+
+        if user_form.is_valid() and system_user_form.is_valid():
+            user = user_form.save()
+            # use the set_password method to hash the password
+            user.set_password(user.password)
+            user.save()
+
+            system_user = system_user_form.save(commit=False)
+            system_user.user = user
+            system_user.save()
+
+            registered = True
+        else:
+            print user_form.error, system_user_form.error
+
+    else:
+        user_form = UserForm()
+        system_user_form = SystemUserForm()
+
+    return render_to_response(
+        'weibovis/register.html',
+        {'user_form': user_form, 'system_user_form': system_user_form, 'registered': registered},
+        context)

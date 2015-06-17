@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -80,7 +81,6 @@ class WbPointPop(models.Model):
 
 
 class SystemModule(models.Model):
-    gid = models.IntegerField()
     mcode = models.CharField(max_length=4)
     mparent = models.CharField(max_length=2)
     morder = models.CharField(max_length=2)
@@ -91,7 +91,6 @@ class SystemModule(models.Model):
 
 
 class SystemRole(models.Model):
-    gid = models.IntegerField()
     rname = models.CharField(max_length=20)
     rnote = models.CharField(max_length=20)
     rpermission = models.CharField(max_length=100)
@@ -105,9 +104,8 @@ class SystemRole(models.Model):
 
 
 class SystemUser(models.Model):
-    uid = models.IntegerField()
-    uname = models.CharField(max_length=20)
-    upwd = models.CharField(max_length=50)
+    user = models.OneToOneField(User)
+
     rtype = models.CharField(max_length=2)
 
     def __unicode__(self):
