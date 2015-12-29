@@ -1,0 +1,15 @@
+{% extends 'weibovis/base-pic.html' %}
+
+{% load static %}
+
+{% block result_block %}
+	<p>以天为时间尺度，统计每个栅格内微博活跃情况，并以时间序列形式展示，
+		能够观察丰台地区每日活跃区域的变化情况。数据显示，东北部地区保持较高的活跃度。</p>
+{% endblock %}
+
+{% block body_block %}
+    <img src="{% static 'Image/weibo-time.gif' %}" alt="time series data gif">
+{% endblock %}
+
+{% block script_block %}
+{% endblock %}

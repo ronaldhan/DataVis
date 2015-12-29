@@ -1,0 +1,94 @@
+﻿<!DCOTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>微博数据分析系统</title>
+		<link href="./static/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="./static/Css/index.css" rel="stylesheet" type="text/css" />
+		<script src="./static/Scripts/dist/jquery.min.js"></script>
+		<script src="./static/Scripts/ecom/esl/esl.js"></script>
+		<script src="./static/Scripts/dist/echarts-all.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="page-header">
+			   <h1>微博数据分析系统
+			      <small>以丰台地区为例</small>
+			   </h1>
+			</div>
+			<div class="navbar navbar-default" role="navigation">
+			  <div class="navbar-header">
+			  	<a class="navbar-brand" href="/weibovis/about/">微博数据分析</a>
+			  </div>
+		      <div>
+			 	<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">热点分析<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="/weibovis/mapdata/">活跃度地图</a>
+							</li>
+							<li>
+								<a href="/weibovis/hotmap/">Hotmap分析</a>
+							</li>
+							<li>
+								<a href="/weibovis/kde/">核密度分析</a>
+							</li>
+							<li>
+								<a href="/weibovis/hm/map">热力图</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">社群模式分析<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="/weibovis/line/">工作日VS非工作日</a>
+							</li>
+							<li>
+								<a href="/weibovis/charts/">工作时间VS非工作时间</a>
+							</li>
+							<li>
+								<a href="/weibovis/workday/">工作日-工作时间</a>
+							</li>
+							<li>
+								<a href="/weibovis/worknight/">工作日-非工作时间</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav pull-right">
+					<li>
+						<a href="/weibovis/about/">关于</a>
+					</li>
+				</ul>
+		      </div>
+		    </div>
+			<div class="row-fluid content" id="content">
+				<div class="col-xs-9 main">
+					<div>
+						<div id="map_chart"></div>
+					</div>
+				</div>
+				<div class="col-xs-3 bg-info sidebar">
+					<h3>分析结果</h3>
+					<p>利用<mark>natural breaks</mark>算法，将数据划分为“高、中、低”三类。
+		能够明显看出少数地点的亮度很高，大部分地区的则是灰暗的。签到较高地区的分布直观看较为分散，
+		具体而言，东北部分高亮点较多，有空间集聚的态势；东南部分和西南有独立的亮点，值得注意。</p>
+				</div>
+			</div>
+			<div>
+				<hr>
+				<pre class="text-center">copyright@ronaldhan</pre>
+			</div>
+		</div>
+		<script language="JavaScript">
+			var json_ft = "./static/Scripts/geoJson/FT.json"
+			var result = "./static/Temple/map_data.json"
+		</script>
+		<script src="./static/Scripts/dist/bootstrap.min.js"></script>
+		<script type="text/javascript" src="./static/Scripts/index.js"></script>
+	</body>
+</html>

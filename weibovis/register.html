@@ -1,0 +1,41 @@
+﻿<!DCOTYPE html>
+{% load static %}
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>注册</title>
+		<link href="{% static 'Css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'Css/index.css' %}" rel="stylesheet" type="text/css" />
+		<script src="{% static 'Scripts/dist/jquery.min.js' %}"></script>
+	</head>
+	<body>
+		<div class="container">
+			{% if registered %}
+			<strong>thank you for registering!</strong>
+			<a href="/weibovis/">Return to the homepage.</a><br />
+			{% else %}
+			<strong>registe here</strong>
+			<form id="user_form" method="post" action="/weibovis/register/"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Display each form. The as_p method wraps each element in a paragraph
+                 (<p>) element. This ensures each element appears on a new line,
+                 making everything look neater. -->
+            {{ user_form.as_p }}
+            {{ system_user_form.as_p }}
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="注册" />
+	        </form>
+	        {% endif %}
+			<div>
+				<hr>
+				<pre class="text-center">版权所有：北京市测绘设计研究院 技术支持：北京市测绘设计研究院 ICP 备案序号：京 ICP 备 13034775 号<br />地址：北京市海淀区羊坊店路15号 邮编：100038 电话：(010) 63985887 传真：(010)63963144 E-Mail：bism@bism.cn</pre>
+			</div>
+		</div>		
+	</body>
+</html>

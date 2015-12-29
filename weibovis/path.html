@@ -1,0 +1,16 @@
+{% extends 'weibovis/base.html' %}
+
+{% load static %}
+
+{% block body_block %}
+    <div id="path_chart"></div>
+{% endblock %}
+
+{% block result_block %}
+	<p>将所有记录按照用户分组，选取发布量前50的用户记录并且连接成轨迹。</p>
+{% endblock %}
+
+{% block script_block %}
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=UjDN5L4WOmeoTAMIZG73MU1F"></script>
+    <script type="text/javascript" src="{% static 'Scripts/path.js' %}"></script>
+{% endblock %}
