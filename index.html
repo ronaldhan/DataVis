@@ -8,8 +8,7 @@
 		<link href="./static/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<link href="./static/Css/index.css" rel="stylesheet" type="text/css" />
 		<script src="./static/Scripts/dist/jquery.min.js"></script>
-		<script src="./static/Scripts/ecom/esl/esl.js"></script>
-		<script src="./static/Scripts/dist/echarts-all.js"></script>
+
 	</head>
 	<body>
 		<div class="container">
@@ -28,16 +27,19 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="">热点分析<strong class="caret"></strong></a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="/weibovis/mapdata/">活跃度地图</a>
+								<a href="index.html">活跃度地图</a>
 							</li>
 							<li>
-								<a href="/weibovis/hotmap/">Hotmap分析</a>
+								<a href="/weibovis/hotmap.html">Hotmap分析</a>
 							</li>
 							<li>
-								<a href="/weibovis/kde/">核密度分析</a>
+								<a href="/weibovis/kde.html">核密度分析</a>
 							</li>
 							<li>
-								<a href="/weibovis/hm/map">热力图</a>
+								<a href="/weibovis/hm-map.html">百度热力图</a>
+							</li>
+							<li>
+								<a href="/weibovis/time.html">时间序列分析</a>
 							</li>
 						</ul>
 					</li>
@@ -45,23 +47,23 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="">社群模式分析<strong class="caret"></strong></a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="/weibovis/line/">工作日VS非工作日</a>
+								<a href="/weibovis/line.html">工作日VS非工作日</a>
 							</li>
 							<li>
-								<a href="/weibovis/charts/">工作时间VS非工作时间</a>
+								<a href="/weibovis/charts.html">工作时间VS非工作时间</a>
 							</li>
 							<li>
-								<a href="/weibovis/workday/">工作日-工作时间</a>
+								<a href="/weibovis/workday.html">工作日-工作时间</a>
 							</li>
 							<li>
-								<a href="/weibovis/worknight/">工作日-非工作时间</a>
+								<a href="/weibovis/worknight.html">工作日-非工作时间</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="nav pull-right">
 					<li>
-						<a href="/weibovis/about/">关于</a>
+						<a href="/weibovis/about.html">关于</a>
 					</li>
 				</ul>
 		      </div>
@@ -69,7 +71,9 @@
 			<div class="row-fluid content" id="content">
 				<div class="col-xs-9 main">
 					<div>
-						<div id="map_chart"></div>
+						<div id="map_chart">
+							<img src="./static/Image/mapdata.png" class="mapimg">
+						</div>
 					</div>
 				</div>
 				<div class="col-xs-3 bg-info sidebar">
@@ -84,11 +88,7 @@
 				<pre class="text-center">copyright@ronaldhan</pre>
 			</div>
 		</div>
-		<script language="JavaScript">
-			var json_ft = "./static/Scripts/geoJson/FT.json"
-			var result = "./static/Temple/map_data.json"
-		</script>
+
 		<script src="./static/Scripts/dist/bootstrap.min.js"></script>
-		<script type="text/javascript" src="./static/Scripts/index.js"></script>
 	</body>
 </html>
