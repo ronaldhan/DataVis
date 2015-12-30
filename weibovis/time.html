@@ -1,19 +1,89 @@
-﻿{% extends 'weibovis/base.html' %}
-
-{% load static %}
-
-{% block result_block %}
-	<p>以天为时间尺度，统计每个栅格内微博活跃情况，并以时间序列形式展示，
-		能够观察丰台地区每日活跃区域的变化情况。数据显示，东北部地区保持较高的活跃度。</p>
-{% endblock %}
-
-{% block body_block %}
-    <div id="time_chart"></div>
-{% endblock %}
-
-{% block script_block %}
-	<script language="JavaScript">
-		var json_grid = "{% static 'Scripts/geoJson/GRID.json' %}"
-	</script>
-	<script type="text/javascript" src="{% static 'Scripts/time.js' %}"></script>
-{% endblock %}
+﻿<!DCOTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>微博数据分析系统</title>
+		<link href="../static/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="../static/Css/index.css" rel="stylesheet" type="text/css" />
+		<script src="../static/Scripts/dist/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="page-header">
+			   <h1>微博数据分析系统
+			      <small>以丰台地区为例</small>
+			   </h1>
+			</div>
+			<div class="navbar navbar-default" role="navigation">
+			  <div class="navbar-header">
+			  	<a class="navbar-brand" href="about.html">微博数据分析</a>
+			  </div>
+		      <div>
+			 	<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">热点分析<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="index.html">活跃度地图</a>
+							</li>
+							<li>
+								<a href="./hotmap.html">Hotmap分析</a>
+							</li>
+							<li>
+								<a href="./kde.html">核密度分析</a>
+							</li>
+							<li>
+								<a href="./hm-map.html">百度热力图</a>
+							</li>
+							<li>
+								<a href="./time.html">时间序列分析</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">社群模式分析<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="./line.html">工作日VS非工作日</a>
+							</li>
+							<li>
+								<a href="./charts.html">工作时间VS非工作时间</a>
+							</li>
+							<li>
+								<a href="./workday.html">工作日-工作时间</a>
+							</li>
+							<li>
+								<a href="./worknight.html">工作日-非工作时间</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav pull-right">
+					<li>
+						<a href="./about.html">关于</a>
+					</li>
+				</ul>
+		      </div>
+		    </div>
+			<div class="row-fluid content-pic">
+				<div class="col-xs-12 imgshow">
+					<div>
+						<img src="../static/Image/weibo-time.gif" alt="time series data gif">
+					</div>
+				</div>
+				<div class="col-xs-12 bg-info comment">
+					<h3>分析结果</h3>
+					<p>以天为时间尺度，统计每个栅格内微博活跃情况，并以时间序列形式展示，
+						能够观察丰台地区每日活跃区域的变化情况。数据显示，东北部地区保持较高的活跃度。</p>
+				</div>
+			</div>
+			<div>
+				<hr>
+				<pre class="text-center">copyright@ronaldhan</pre>
+			</div>
+		</div>
+		<script src="../static/Scripts/dist/bootstrap.min.js"></script>
+	</body>
+</html>

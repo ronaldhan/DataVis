@@ -1,19 +1,94 @@
-﻿{% extends 'weibovis/base.html' %}
-
-{% load static %}
-
-{% block result_block %}
-	<p>以天为时间尺度，并划分为白天和夜晚分别统计</p>
-	<p>五一是全国性的假期，在假期间，微博发布量明显较高，随着假期的推进，发布量逐渐下降。
-		对于一个月中非假期时间，以周为单位，5月份中周六分别是3、10、17、24、31号，周日为4、11、18、25号，
-		从图中可以看出周末是本周微博发布量的高点，并随着周末结束，工作日开始，发布量明显下滑。
-		可以认为，一周内，工作日和周末存在明显的差异，周末期间发布量较高。</p>
-{% endblock %}
-
-{% block body_block %}
-    <div id="bar_chart"></div>
-{% endblock %}
-
-{% block script_block %}
-	<script type="text/javascript" src="{% static 'Scripts/charts.js' %}"></script>
-{% endblock %}
+﻿<!DCOTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>微博数据分析系统</title>
+		<link href="../static/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="../static/Css/index.css" rel="stylesheet" type="text/css" />
+		<script src="../static/Scripts/dist/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="page-header">
+			   <h1>微博数据分析系统
+			      <small>以丰台地区为例</small>
+			   </h1>
+			</div>
+			<div class="navbar navbar-default" role="navigation">
+			  <div class="navbar-header">
+			  	<a class="navbar-brand" href="about.html">微博数据分析</a>
+			  </div>
+		      <div>
+			 	<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">热点分析<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="../index.html">活跃度地图</a>
+							</li>
+							<li>
+								<a href="./hotmap.html">Hotmap分析</a>
+							</li>
+							<li>
+								<a href="./kde.html">核密度分析</a>
+							</li>
+							<li>
+								<a href="./hm-map.html">百度热力图</a>
+							</li>
+							<li>
+								<a href="./time.html">时间序列分析</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">社群模式分析<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="./line.html">工作日VS非工作日</a>
+							</li>
+							<li>
+								<a href="./charts.html">工作时间VS非工作时间</a>
+							</li>
+							<li>
+								<a href="./workday.html">工作日-工作时间</a>
+							</li>
+							<li>
+								<a href="./worknight.html">工作日-非工作时间</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav pull-right">
+					<li>
+						<a href="about.html">关于</a>
+					</li>
+				</ul>
+		      </div>
+		    </div>
+			<div class="row-fluid content" id="content">
+				<div class="col-xs-9 main">
+					<div>
+					<div id="hmmap_chart">
+						<img src="../static/Image/charts-all.png" class="mapimg">
+					</div>						
+					</div>
+				</div>
+				<div class="col-xs-3 bg-info sidebar">
+					<h3>分析结果</h3>
+					<p>以天为时间尺度，并划分为白天和夜晚分别统计</p>
+					<p>五一是全国性的假期，在假期间，微博发布量明显较高，随着假期的推进，发布量逐渐下降。
+						对于一个月中非假期时间，以周为单位，5月份中周六分别是3、10、17、24、31号，周日为4、11、18、25号，
+						从图中可以看出周末是本周微博发布量的高点，并随着周末结束，工作日开始，发布量明显下滑。
+						可以认为，一周内，工作日和周末存在明显的差异，周末期间发布量较高。</p>
+				</div>				
+			</div>
+			<div>
+				<hr>
+				<pre class="text-center">copyright@ronaldhan</pre>
+			</div>
+		</div>
+		<script src="../static/Scripts/dist/bootstrap.min.js"></script>
+	</body>
+</html>
